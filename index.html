@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#091019" />
+    <title>Solar Array Sizer</title>
+    <script type="module" src="./main.js" defer></script>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div>
+          <h1>Off-grid planning tool</h1>
+          <p class="eyebrow">By Shur Lazuli</p>
+        </div>
+      </div>
+      <div class="status-pill"><span class="status-dot"></span>Lucifer ready</div>
+    </header>
+
+    <section class="intro">
+      <div>
+        <p class="section-kicker">Photovoltaic sizing</p>
+        <h2>Power your day.<br /><em>Prepare for tonight.</em></h2>
+        <p class="intro-copy">Estimate the photovoltaic array power needed to keep your load running through daylight and batteries for night hours.</p>
+      </div>
+      <div class="sun-orbit" aria-hidden="true"><div class="orbit-ring"></div><div class="sun-core"></div></div>
+    </section>
+
+    <section class="flow-section">
+      <div class="flow-heading">
+        <div>
+          <p class="section-kicker">Energy flow</p>
+          <h3>System overview</h3>
+        </div>
+        <div class="cycle-indicator">
+          <span class="cycle-dot"></span>
+          <span id="cycle-label">Daylight cycle</span>
+          <b>✓</b>
+        </div>
+      </div>
+      
+      <div class="diagram-card">
+        <div class="phase-labels"><span class="active-phase" id="day-label">DAYLIGHT</span><span id="night-label">NIGHT</span></div>
+        <div class="diagram" aria-label="Animated energy flow from solar panels to the battery and lamp load">
+          <svg class="flow-lines" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
+            <path class="line line-main" d="M 260 140 L 500 140 L 735 140" />
+            <path class="line line-battery" d="M 500 140 L 500 245" />
+            <path class="flow flow-solar" d="M 260 140 L 500 140" />
+            <path class="flow flow-load" d="M 500 140 L 735 140" />
+            <path class="flow flow-battery" d="M 500 140 L 500 245" />
+          </svg>
+          <div class="node node-solar"><div class="solar-graphic"><span></span><span></span><span></span><span></span><i></i></div><strong>Solar array</strong><small>PV generation</small></div>
+          <div class="junction"><span></span><small>Energy hub</small></div>
+          <div class="node node-load"><div class="lamp-graphic"><span class="lamp-glow"></span><span class="lamp-shade"></span><span class="lamp-stem"></span><span class="lamp-base"></span></div><strong>Load</strong><small>Day + night demand</small></div>
+          <div class="node node-battery"><div class="battery-graphic"><span class="battery-cap"></span><span class="battery-body"><i></i><i></i><i></i><i></i></span></div><strong>Battery bank</strong><small>Night reserve</small></div>
+        </div>
+        <div class="diagram-footer"><span><i class="legend-sun"></i>Array to system</span><span><i class="legend-battery"></i>Stored energy</span><p id="flow-caption">Solar energy feeds the load and charges the battery.</p></div>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <article class="panel input-panel">
+        <div class="panel-heading">
+          <div class="heading-icon">↗</div>
+          <div><p class="section-kicker">Inputs</p><h3>System demand</h3></div>
+        </div>
+        <p class="panel-description">Tell us how much power your load consumes and the average peak sun available each day.</p>
+        
+        <form id="sizing-form">   
+          <label class="field">
+            <span>Load power <small>PL</small></span>
+            <div class="input-wrap"><input id="load" type="number" min="0.01" step="0.001" value="1" required /><b>kW</b></div>
+          </label>
+          <label class="field">
+            <span>Daylight usage hours<small>Dh</small></span>
+            <div class="input-wrap"><input id="daylight-hours" type="number" min="0.01" step="0.001" value="10" required /><b>hours</b></div>
+          </label>
+          <label class="field">
+            <span>Night usage hours <small>Nh</small></span>
+            <div class="input-wrap"><input id="night-hours" type="number" min="0.01" step="0.001" value="5" required /><b>hours</b></div>
+          </label>
+          <label class="field">
+            <span>Peak sun hours <small>PSH</small></span>
+            <div class="input-wrap"><input id="sun-hours" type="number" min="0.1" step="0.1" value="5" required /><b>hours</b></div>
+          </label>
+          <button type="submit">Calculate array size <span>→</span></button>
+        </form>
+      </article>
+
+      <article class="panel result-panel">
+        <div class="result-topline"><p class="section-kicker">Recommended setup</p><span class="live-label"><span></span>Live estimate</span></div>
+        <div class="result-value"><output id="array-result">2.40</output><span>kW</span></div>
+        <p class="result-title">Required photovoltaic array</p>
+        <div class="result-value"><output id="battery-result">7.47</output><span>kWh</span></div>
+        <p class="result-title">Required battery bank</p>
+        <div class="result-rule"></div>
+        <div class="result-badge">Sized for reliable daily operation <span>✓</span></div>
+      </article>
+    </section>
+
+    <footer><span>Shur</span><h3>Martin Carballo</h3></footer>
+    </div>
+  </body>
+</html>
